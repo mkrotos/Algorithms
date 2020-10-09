@@ -12,9 +12,9 @@ def quicksort(array: List) -> List:
         return array
     else:
         pivot = array[0]
-        less = [i for i in array[1:] if i <= pivot]
+        lesser = [i for i in array[1:] if i <= pivot]
         greater = [i for i in array[1:] if i > pivot]
-        return quicksort(less) + [pivot] + quicksort(greater)
+        return quicksort(lesser) + [pivot] + quicksort(greater)
 
 
 print(quicksort([2, 6, 43, 7, 3]))
