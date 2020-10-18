@@ -1,6 +1,7 @@
+import unittest
 from unittest import TestCase
 
-from algorithms.binary_search_recursive import binary_search_recursive
+from algorithms.extra.binary_search_recursive import binary_search_recursive
 
 
 class Test(TestCase):
@@ -28,3 +29,7 @@ class Test(TestCase):
         index_found = binary_search_recursive([1, 2, 3, 6], 5)
         # then
         self.assertEqual(index_found, None)
+
+
+if __name__ == '__main__':
+    unittest.main()
