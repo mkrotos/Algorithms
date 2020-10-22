@@ -82,7 +82,7 @@ class Test(TestCase):
         graph = WeightedGraph(FIRST_NODE)
         graph.add(SECOND_NODE, FIRST_NODE, 2)
         # when
-        weight = graph.get_weight_between_nodes(FIRST_NODE, SECOND_NODE)
+        weight = graph.get_weight_between_neighbour_nodes(FIRST_NODE, SECOND_NODE)
         # then
         self.assertEqual(2, weight)
 
@@ -93,12 +93,21 @@ class Test(TestCase):
         # then
         with self.assertRaises(NodeNotPresentException):
             # when
-            graph.get_weight_between_nodes(NOT_EXISTING_NODE, SECOND_NODE)
+            graph.get_weight_between_neighbour_nodes(NOT_EXISTING_NODE, SECOND_NODE)
 
-    def test_return_none_as_weight_on_not_existing_second_node(self):
+    def test_return_infinity_as_weight_on_not_existing_second_node(self):
         # given
         graph = WeightedGraph(FIRST_NODE)
         # when
-        weight = graph.get_weight_between_nodes(FIRST_NODE, SECOND_NODE)
+        weight = graph.get_weight_between_neighbour_nodes(FIRST_NODE, SECOND_NODE)
         # then
-        self.assertIsNone(weight)
+        self.assertEqual(weight, float('inf'))
+
+    def test_get_all_node_names(self):
+        # given
+        graph = WeightedGraph(FIRST_NODE)
+        graph.add(SECOND_NODE, FIRST_NODE, 2)
+        # when
+        nodes = graph.get_all_nodes()
+        # then
+        self.assertEqual(nodes, [FIRST_NODE, SECOND_NODE])
