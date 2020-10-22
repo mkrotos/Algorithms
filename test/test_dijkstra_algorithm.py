@@ -12,7 +12,9 @@ class MyTestCase(unittest.TestCase):
         # when
         road = run(graph, start='start', finish='finish')
         # then
+        self.assertTrue(road.exists())
         self.assertEqual(road.distance(), 3)
+        self.assertEqual(road.path(), ['start', 'finish'])
 
     def test_find_way_between_three_nodes(self):
         # given
@@ -23,6 +25,7 @@ class MyTestCase(unittest.TestCase):
         road = run(graph, start='start', finish='finish')
         # then
         self.assertEqual(road.distance(), 5)
+        self.assertEqual(road.path(), ['start', 'middle', 'finish'])
 
     def test_find_shortest_way_from_many_possible(self):
         # given
@@ -41,6 +44,18 @@ class MyTestCase(unittest.TestCase):
         road = run(graph, start='start', finish='finish')
         # then
         self.assertEqual(road.distance(), 14)
+        self.assertEqual(road.path(), ['start', '1', '2', '3', '4', 'finish'])
+
+    def test_return_infinity_if_path_do_not_exists(self):
+        # given
+        graph = WeightedGraph('start')
+        graph.add('finish', 'start', 100)
+
+        # when
+        road = run(graph, start='finish', finish='start')
+        # then
+        self.assertFalse(road.exists())
+        self.assertEqual(road.distance(), float('inf'))
 
 
 if __name__ == '__main__':
