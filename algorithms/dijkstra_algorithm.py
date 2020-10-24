@@ -21,7 +21,7 @@ infinity = float('inf')
 costs = {}
 costs['a'] = 6
 costs['b'] = 2
-costs['fin'] = infinity
+costs['meta'] = infinity
 
 ##################################
 
@@ -38,7 +38,14 @@ processed = []
 #################################
 
 def find_lowest_cost_node(costs: Dict):
-    pass
+    lowest_cost = float('inf')
+    lowest_cost_node = None
+    for node in costs:
+        cost = costs[node]
+        if cost < lowest_cost and node not in processed:
+            lowest_cost = cost
+            lowest_cost_node = node
+    return lowest_cost_node
 
 
 node = find_lowest_cost_node(costs)
@@ -53,3 +60,23 @@ while node is not None:
     processed.append(node)
     node = find_lowest_cost_node(costs)
 
+
+def find_path(parents, finish):
+    path = []
+    node = finish
+    while node:
+        path.insert(0, node)
+        if parents.__contains__(node):
+            node = parents[node]
+        else:
+            node = None
+    return path
+
+
+print(costs)
+print(parents)
+
+path = find_path(parents, 'meta')
+distance = costs['meta']
+print(f'Path: {path}')
+print(f'Distance from start to finish: {distance}')

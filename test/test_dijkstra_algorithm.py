@@ -46,6 +46,24 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(road.distance(), 14)
         self.assertEqual(road.path(), ['start', '1', '2', '3', '4', 'finish'])
 
+    def test_find_shortest_way_from_many_possible_2(self):
+        # given
+        graph = WeightedGraph('start')
+
+        graph.add('A', 'start', 6)
+        graph.add('B', 'start', 2)
+
+        graph.add('A', 'B', 3)
+
+        graph.add('finish', 'A', 1)
+        graph.add('finish', 'B', 5)
+
+        # when
+        road = run(graph, start='start', finish='finish')
+        # then
+        self.assertEqual(road.distance(), 6)
+        self.assertEqual(road.path(), ['start', 'B', 'A', 'finish'])
+
     def test_return_infinity_if_path_do_not_exists(self):
         # given
         graph = WeightedGraph('start')

@@ -31,7 +31,7 @@ class Road:
 
 def run(graph: WeightedGraph, start: str, finish: str) -> Road:
     """
-    Finds the fastest road between two nodes.
+    Finds the fastest road between two nodes in weighted and directed graph
 
     :param graph: graph in which road should be found
     :param start: name of the start node
@@ -59,8 +59,8 @@ def run(graph: WeightedGraph, start: str, finish: str) -> Road:
 
 
 def _find_lowest_cost_not_processed_node(costs: dict, processed):
-    not_processed_costs = {key: val for (key, val) in costs.items() if not processed.__contains__(key) and costs[key]}
-    if len(not_processed_costs) is 0:
+    not_processed_costs = {key: val for (key, val) in costs.items() if not processed.__contains__(key)}
+    if len(not_processed_costs) == 0:
         return None
     return min(not_processed_costs, key=not_processed_costs.get)
 
